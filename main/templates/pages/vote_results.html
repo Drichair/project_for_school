@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+{% for record in variants %}
+<p>{{ record.description }}   {{ record.procent }} {{ record.count }}</p>
+{% endfor %}
+</body>
+</html>

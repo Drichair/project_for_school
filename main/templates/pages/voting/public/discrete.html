@@ -1,0 +1,17 @@
+{% extends 'base/voting_base.html' %}
+
+
+{% block voting_form_variants %}
+  <div class="row">
+
+    {% for variant in voting.votevariant_set.all %}
+      <div class="col-3 mx-2 mb-5 d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg" name="variant" value="{{variant.id}}">{{variant.description}}</button>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}
+
+
+{% block voting_form_submit %}{% endblock %}

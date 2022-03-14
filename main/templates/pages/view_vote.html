@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>VOTING:</h1>
+  <p>
+    {{ voting.title }}
+    {{ voting.description }}
+    {{ voting.type }}
+    {{ voting.author }}
+    {{ voting.published_at }}
+  </p>
+
+  <h1>USER: {{ user }}</h1>
+
+
+{% endblock %}

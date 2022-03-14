@@ -1,0 +1,108 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<center>
+  <div class="row">
+    <div class="col">
+      <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card-body">
+          <form method='post'
+                id="form_voting_edit"
+                action="{% url 'voting_edit' voting.id %}">
+            {% csrf_token %}
+            <input type="hidden"
+                   id="voting_identifier"
+                   value="{{voting.id}}">    {# айдишник нужен для формы добавления нового варианта #}
+            <h5 class="card-title">Заголовок</h5>
+            <input type="text"
+                   class="form-control"
+                   name='title'
+                   required
+                   placeholder="{{ voting.title }}"
+                   value="{{ voting.title }}"
+                   aria-label="Введите заголовок"
+                   aria-describedby="basic-addon1">
+            <br>
+            <h5 class="card-title">Описание</h5>
+            <input type="text"
+                   class="form-control"
+                   style="height: 13rem;"
+                   name='description'
+                   required
+                   placeholder="{{ voting.description }}"
+                   value="{{ voting.description }}"
+                   aria-label="Введите описание"
+                   aria-describedby="basic-addon1">
+          </form>
+          <div class="row">
+            <div class='col'>
+              <input type="submit"
+                     form="form_voting_edit"
+                     class="btn btn-primary mt-4"
+                     value="Применить изменения">
+            </div>
+          </div>
+
+          <br>
+          <h5 class="card-title">Варианты ответа</h5>
+
+          <div class="row">
+            <span id="count" style="display: none">{{count}}</span>
+            {% for variant in voting.votevariant_set.all %}
+              <div class="col-8">
+                <form method="post" id="form_variant_{{variant.id}}" class="mt-3"  action="{% url 'variant_change' voting.id variant.id %}">
+                  {% csrf_token %}
+                    <input type="text" name='add_answer' id='add_answer'
+                           class="form-control"
+                           placeholder="Введите вариант ответа #1"
+                           aria-label="Введите вариант ответа"
+                           aria-describedby="basic-addon1"
+                           value="{{variant.description}}"
+                    >
+                </form>
+              </div>
+              <div class="col-2 mt-3">
+                <button type="submit"
+                        form="form_variant_{{variant.id}}"
+                        class="btn btn-warning"
+                        value="Save">
+                  <i class="bi bi-cloud-plus-fill"></i>
+                </button>
+              </div>
+              <form method="post"
+                    class="col-2 mt-3"
+                    action="{% url 'variant_delete' voting.id variant.id %}">
+                {% csrf_token %}
+                <button type="submit"
+                        class="btn pt-0"
+                        value="Delete">
+                  <i class="bi bi-trash-fill btn btn-danger" ></i>
+                </button>
+              </form>
+            {% endfor %}
+          </div>
+          <div id="variants_container" class="row"></div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <button type="button"
+                      onclick="add_variant()"
+                      class="btn btn-light border btn-sm fw-bold"
+                      style="width: 10%;">+</button>
+            </div>
+          </div>
+          <br>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</center>
+<br>
+<br>
+<br>
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'js/vote_edit.js' %}"></script>
+{% endblock %}

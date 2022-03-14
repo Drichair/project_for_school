@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-6 offset-3 mb-3">
+      <div class="border rounded-2 shadow p-3 mb-5 bg-white rounded">
+        <div class="row">
+          <div class="col">
+            <center>
+              <h3> {{ voting.title }} </h3>
+            </center>
+          </div>
+          <hr>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <div class="form-text">
+              {{ voting.description }}
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6> Автор: </h6><div class="badge bg-primary">{{ voting.author }}</div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6> Опубликовано: </h6>
+             {{ voting.published_at }}
+          </div>
+        </div>
+        <br>
+        <a href="{% url 'index' %}" class="btn btn-danger">Пожаловаться!!!</a>
+      </div>
+</div>
+<br>
+<br>
+{% endblock %}

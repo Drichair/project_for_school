@@ -1,0 +1,86 @@
+% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
+{% if request.user.is_authenticated %}
+  <br>
+  <br>
+  <br>
+  <div class="row mt-5" align="center">
+
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col position-relative">
+        <img
+          src="{% static 'imgs/user2-removebg.png' %}"
+          class="img-thumbnail btn position-absolute top-0 start-100 translate-middle rounded-circle float-end" alt="Аватар пользователя">
+      </div>
+      <div class="col position-relative">
+        <p class="position-absolute top-0 start-100 translate-middle">Создано голосований:</p>
+      </div>
+      <br>
+      <br>
+      <div class="position-relative">
+        <p class="fw-bold position-absolute top-0 start-100 translate-middle">{{votings_count}}</p>
+      </div>
+      <br>
+      <br>
+       <div class="col position-relative">
+        <p class="position-absolute top-0 start-100 translate-middle">Оставлено голосов:</p>
+      </div>
+      <br>
+      <br>
+      <div class="position-relative">
+        <p class="fw-bold position-absolute top-0 start-100 translate-middle">{{votefact_count}}</p>
+      </div>
+      <br>
+      <br>
+      <div class="col position-relative">
+        <p class="position-absolute top-0 start-100 translate-middle">Ранг:</p>
+      </div>
+      <br>
+      {% if votefact_count < 10 %}
+      <div class="position-relative">
+        <span class="badge bg-primary fw-bold position-absolute top-0 start-100 translate-middle">Начинающий</span>
+      </div>
+      {% endif %}
+      {% if votefact_count >= 10 and votefact_count < 50 %}
+      <div class="position-relative">
+        <span class="badge bg-secondary fw-bold position-absolute top-0 start-100 translate-middle">Средний</span>
+      </div>
+      {% endif %}
+      {% if votefact_count >= 50 %}
+      <div class="position-relative">
+        <span class="badge bg-warning fw-bold position-absolute top-0 start-100 translate-middle">Продвинутый</span>
+      </div>
+      {% endif %}
+    </div>
+
+
+  <form class="col-5 mx-auto" method='post' action="/profile/{{user.id}}/edit/">
+    {% csrf_token %}
+  <h5 class="card-title mt-3">Имя пользователя</h5>
+            <input type="text" class="form-control" name='username' required placeholder="Введите имя пользователя"
+                   value="{{ user.username }}" aria-label="Введите заголовок" aria-describedby="basic-addon1">
+
+  <h5 class="card-title mt-3">Адрес электронной почты</h5>
+            <input type="text" class="form-control" style="height: 3rem;" name='email' required
+                   placeholder="Введите адрес электронной почты" value="{{ user.email }}" aria-label="Введите описание"
+                   aria-describedby="basic-addon1">
+
+    <div class="row my-5">
+        <input type="submit" class="btn btn-primary text-white fw-bold mt-4" value="Применить изменения">
+    </div>
+
+  </form>
+
+
+{% else %}
+  <center>
+    <h1 class="display-6">Войдите, чтобы посмотреть информацию!!!</h1>
+    <a href="{% url 'login' %}" class="display-6">Войти</a>
+  </center>
+{% endif %}
+<br>
+<br>
+{% endblock %}

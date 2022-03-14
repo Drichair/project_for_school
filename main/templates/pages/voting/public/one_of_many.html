@@ -1,0 +1,8 @@
+{% extends 'base/voting_base.html' %}
+
+{% block voting_form_variant_previev %}
+  <div class="mx-2 my-3 form-check">
+    <input class="form-check-input" required type="radio" name="variant" id="variant_{{variant.id}}" value="{{variant.id}}">
+    <label class="form-check-label" for="variant_{{variant.id}}">{{variant.description}}</label>
+  </div>
+{% endblock %}

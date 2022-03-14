@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extra_css %}
+     <link rel="stylesheet" href="{% static 'css/vote_add.css' %}">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+        <div class="form-wrap shadow mb-5 rounded">
+    <div class="profile"><img src="https://html5book.ru/wp-content/uploads/2016/10/profile-image.png">
+      <h1>{{ user.username }}</h1>
+    </div>
+    <form method="post" action="{% url 'voting_add' %}">
+      {% csrf_token %}
+      <div>
+        <label for="title">Вопрос</label>
+        <input type="text" class="styled-text-input" name="title" id="title" required>
+      </div>
+      <div>
+        <label for="description">Описание</label>
+        <input type="text" class="styled-text-input" name="description" id="description">
+      </div>
+      <div class="radio">
+        <span>Вид опроса</span>
+        <label>
+          <input type="radio" name="type" value="Анонимный">Анонимный
+          <div class="radio-control anonymous"></div>
+        </label>
+        <label>
+          <input type="radio" name="type" value="Публичный">Публичный
+          <div class="radio-control public"></div>
+        </label>
+      </div>
+      <div>
+        <span id="count" style="display: none">2</span>
+        <label>Варианты ответа</label>
+        <div id="variants_container">
+          <input type="text" class="styled-text-input" name="add_answer_0" required style="margin-top:3px;" id="add_answer_0">
+          <input type="text" class="styled-text-input" name="add_answer_1" required style="margin-top:3px;" id="add_answer_1">
+        </div>
+        <button type="button" class="add_bottom" onclick="add_variant()">+</button>
+      </div>
+      <div>
+        <label for="type">Тип ответа</label>
+        <select name="type" id="type">
+          <option>Выберите тип голосования</option>
+          <option value="1">Один</option>
+          <option value="2">Несколько</option>
+          <option value="3">Дискретный</option>
+        </select>
+        <div class="select-arrow"></div>
+      </div>
+      <button class="bottom" type="submit">Загрузить на сайт</button>
+      <br>
+    </form>
+  </div>
+<br>
+<br>
+
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'js/vote_add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto w-75 ">
+  <div class="card mb-3 shadow mb-5 bg-white rounded">
+    <div class="row g-0">
+
+      {% block voting_image %}
+      <div class="col-md-4">
+        <img src="{% static 'imgs/voting_default.png' %}" width="200px" class="img-fluid rounded-start"
+             alt="Тут будет изображение голосования">
+      </div>
+      {% endblock %}
+
+      <div class="col-md-8">
+        <div class="card-body">
+
+          {% block voting_details %}
+          <h3 class="card-title">{{voting.title}}</h3>
+          <div class="card-text">{{voting.description}}</div>
+          {% endblock %}
+
+          <div class="row">
+            <div class="col">
+            {% for variant in variants %}
+              <div class="row">
+                <div class="col mt-3">
+                  Вариант "{{ variant.description }}": {{ variant.procent }}%
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                         role="progressbar"
+                         aria-valuenow="{{ variant.procent }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100" style="width: {{ variant.procent }}%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <a href="{% url 'index' %}" class="btn btn-primary mt-2" title="На главную">На главную</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

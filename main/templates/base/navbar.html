@@ -1,0 +1,41 @@
+{% load static %}
+<div class="container">
+  <br>
+  <div class="row align-items-center">
+    <div class="col-1">
+      <a href="{% url 'index' %}"><img src="{% static 'imgs/logo3-removebg.png' %}" class="top-0 start-0" alt="Кнопка «input»"></a>
+    </div>
+
+    <div class="col offset-1">
+      {% include 'base/menu.html' %}
+    </div>
+
+    <div class="col-2">
+      <div class="row">
+        {% if request.user.is_authenticated %}
+          <div class="col px-0">
+            <br>
+            <a href="{% url 'profile' %}"><img src="https://html5book.ru/wp-content/uploads/2016/10/profile-image.png" title="Аватар пользователя" width="50px" class="rounded-circle float-end" alt="Кнопка «input»"></a>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="row">
+        <div class="col px-1">
+          {% if request.user.is_authenticated %}
+            <a class="float-end nav-link px-0 fst-italic" href="{% url 'profile' %}" title="Перейти в профиль">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col px-1">
+            <a class="float-end nav-link px-0 pt-0" href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+            <a class="float-end nav-link px-0" href="{% url 'login' %}">Войти</a>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

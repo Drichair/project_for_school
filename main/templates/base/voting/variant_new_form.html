@@ -1,0 +1,23 @@
+<div class="col-8">
+  <form method="post"
+        action="{% url 'variant_new_form' voting.id %}"
+        id="new_variant_form"
+        class="mt-3">
+    {% csrf_token %}
+    <input type="text"
+           name='description'
+           id='add_answer'
+           class="form-control"
+           placeholder="Введите вариант ответа"
+           aria-label="Введите вариант ответа"
+           aria-describedby="basic-addon1">
+  </form>
+</div>
+<div class="col-2 mt-3">
+  <button type="submit"
+          form="new_variant_form"
+          class="btn btn-warning"
+          value="Save">
+    <i class="bi bi-cloud-plus-fill"></i>
+  </button>
+</div>
